@@ -21,6 +21,26 @@
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="--output $ProjectFileDir$/compiledJs/$FileDirRelativeToProjectRoot$/ --compile --map $FileName$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .coffee files into .js files" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="litcoffee" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="CoffeeScript Literate" />
+      <option name="output" value="$ProjectFileDir$/compiledJs/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.js;$ProjectFileDir$/compiledJs/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.map" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="/usr/local/bin/coffee" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
   </component>
 </project>
 
