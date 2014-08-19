@@ -22,6 +22,7 @@
     "must": "~0.12.0"
   },
   "dependencies": {
-    "coffee-script": "~1.7.1"
+    "coffee-script": "~1.7.1",
+    "eventric": "0.0.86"
   }
 }
