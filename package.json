@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "eventric": "0.0.86",
+    "eventric": "0.0.102",
     "node-uuid": "^1.4.1"
   }
 }
