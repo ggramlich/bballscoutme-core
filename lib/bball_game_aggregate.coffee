@@ -1,3 +1,5 @@
+uuid = require 'node-uuid'
+
 module.exports = class BBallGame
   create: (done) ->
     console.log 'BBallGame.create()'
@@ -6,6 +8,10 @@ module.exports = class BBallGame
 
   addPlayer: (params, done) ->
     console.log 'BBallGame.addPlayer()'
+    if params.team not in ['A', 'B']
+      return done new Error 'No valid team given'
+
+    params.gamePlayerId = uuid.v4()
     @$emitDomainEvent 'PlayerAdded', params
     done()
 
@@ -19,6 +25,6 @@ module.exports = class BBallGame
 #    console.dir domainEvent
     {payload: {team, id}} = domainEvent
     @state[team] ?= {}
-    @state[team][id] = 'Player ' + id
+    @state[team][id] = 'GamePlayer ' + id
 
     console.dir this
