@@ -1,7 +1,7 @@
 eventric = require 'eventric'
 Aggregate = require 'eventric/src/aggregate'
 DomainEvent = require 'eventric/src/domain_event'
-BBallGame = require './bball_game_aggregate'
+BBallGame = require './bball_game/aggregate_root'
 
 gameContext = eventric.context 'bball game'
 

@@ -8,14 +8,14 @@ We set up the BBallGame constructor with a fake uuid generator.
     mock = require 'mock'
     UUID = 'uuid'
 
-    BBallGame = mock '../lib/bball_game_aggregate', {
+    BBallGame = mock '../../lib/bball_game/aggregate_root', {
       'node-uuid': v4: -> UUID
     }, require
 
 The `prepareForTest` function injects a fake `$emitDomainEvent` method into the the given object and returns an object
 with a method `expectedEvents`.
 
-    prepareForTest = require './helper/prepare_for_test'
+    prepareForTest = require '../helper/prepare_for_test'
 
 We describe the behavior of the methods which are called by the command handlers.
 
