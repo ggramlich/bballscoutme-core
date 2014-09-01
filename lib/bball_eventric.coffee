@@ -5,16 +5,16 @@ BBallGame = require './bball_game/aggregate_root'
 
 gameContext = eventric.context 'bball game'
 
-#gameContext
-#  .defineDomainEvents require './bball_game_events'
-#  .addAggregates {BBallGame}
-#  .addCommandHandlers require './bball_game_commands'
-#  .initialize ->
-#    gameContext.command('CreateGame')
-#    .then (gameId) -> gameContext.command('AddPlayer', gameId: gameId, team: 'A')
-#    .then (gameId) -> gameContext.command('AddPlayer', gameId: gameId, team: 'B')
-#    .then (gameId) -> gameContext.emitDomainEvent('PlayerAdded', team: 'A', id: 'PSEUDO')
-#    .then -> console.log 'initialized'
+gameContext
+  .defineDomainEvents require './bball_game/events'
+  .addAggregates {BBallGame}
+  .addCommandHandlers require './bball_game/command_handlers'
+  .initialize ->
+    gameContext.command('CreateGame')
+    .then (gameId) -> gameContext.command('AddPlayer', gameId: gameId, team: 'A')
+    .then (gameId) -> gameContext.command('AddPlayer', gameId: gameId, team: 'B')
+    .then (gameId) -> gameContext.emitDomainEvent('PlayerAdded', team: 'A', id: 'PSEUDO')
+    .then -> console.log 'initialized'
 
 aggregate = new Aggregate {}, 'BBallGame', BBallGame
 domainEvent1 = new DomainEvent
