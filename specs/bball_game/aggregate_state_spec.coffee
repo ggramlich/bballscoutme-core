@@ -24,3 +24,23 @@ describe 'bball game state', ->
 
     @gameState.team.A.players[UUID1].name.must.be 'Name'
     @gameState.team.A.players[UUID1].number.must.be '1'
+
+  it "doesn't override the player details when no value is set", ->
+    player = new GamePlayer UUID1
+    player.number = '2'
+    player.name = 'Name'
+    @gameState.team.A.addPlayer player
+    @gameState.handlePlayerDetailsUpdated team: 'A', gamePlayerId: UUID1, number: '1'
+
+    @gameState.team.A.players[UUID1].name.must.be 'Name'
+    @gameState.team.A.players[UUID1].number.must.be '1'
+
+  it "overrides the player details when an empty string value is set", ->
+    player = new GamePlayer UUID1
+    player.number = '2'
+    player.name = 'Name'
+    @gameState.team.A.addPlayer player
+    @gameState.handlePlayerDetailsUpdated team: 'A', gamePlayerId: UUID1, name: '', number: ''
+
+    @gameState.team.A.players[UUID1].name.must.be ''
+    @gameState.team.A.players[UUID1].number.must.be ''
