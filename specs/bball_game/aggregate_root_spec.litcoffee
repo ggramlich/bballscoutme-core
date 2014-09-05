@@ -2,14 +2,27 @@ The BBall Game provides several methods that are invoked by commands and emit ev
 Which events are emitted depends on the current state of the BBall Game. Some method calls
 might even be illegal für the current state of the game.
 
-We set up the BBallGame constructor with a fake uuid generator.
 
     expect = require 'must'
     mock = require 'mock'
+
+This is the uuid that is returned by the fake uuid generator `v4()` method call.
+
     UUID = 'uuid'
+
+### <a name="FakeGameState"></a> ###
+The Fake `GameState` provides a `handleSomeEvent` method that records its call in the `calledMethods` array.
+
+    calledMethods = null
+    class GameState
+      handleSomeEvent: (event) ->
+        calledMethods.push handleSomeEvent: event
+
+We set up the `BBallGame` constructor with the fake uuid generator and fake `GameState`.
 
     BBallGame = mock '../../lib/bball_game/aggregate_root', {
       'node-uuid': v4: -> UUID
+      '../../lib/bball_game/aggregate_state': GameState
     }, require
 
 The `prepareForTest` function injects a fake `$emitDomainEvent` method into the the given object and returns an object
@@ -57,3 +70,13 @@ The `team` attribute must be either `'A'` or `'B'`.
             err.message.must.be 'No valid team given'
             @testGame.expectedEvents()
 
+All `handle...` methods from the [`GameState`](#FakeGameState) are available on the `BBallGame` aggregate root
+and delegate to the `GameState` using the payload attribute from the original parameter as the parameter.
+
+      describe 'handleSomeEvent', ->
+        beforeEach ->
+          calledMethods = []
+
+        it 'delegates to the game state', ->
+          @game.handleSomeEvent payload: 'x'
+          calledMethods.must.eql [handleSomeEvent: 'x']

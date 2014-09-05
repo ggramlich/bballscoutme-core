@@ -1,6 +1,21 @@
 uuid = require 'node-uuid'
+GameState = require './aggregate_state'
 
-module.exports = class BBallGame
+addEventHandlerDelegates = (gameState, target) ->
+  for methodName, method of gameState
+    addEventHandlerDelegate gameState, target, methodName, method
+
+addEventHandlerDelegate = (gameState, target, methodName, method) ->
+  return unless methodName.indexOf('handle') is 0
+  target[methodName] = (domainEvent) ->
+    method.call gameState, domainEvent.payload
+
+class BBallGame
+
+  constructor: ->
+    gameState = new GameState
+    addEventHandlerDelegates gameState, this
+
   create: (done) ->
     console.log 'BBallGame.create()'
     @$emitDomainEvent 'GameCreated'
@@ -15,16 +30,4 @@ module.exports = class BBallGame
     @$emitDomainEvent 'PlayerAdded', params
     done()
 
-  handleGameCreated: (domainEvent) ->
-    console.log 'BBallGame.handleGameCreated()'
-#    console.dir domainEvent
-    @state = {}
-
-  handlePlayerAdded: (domainEvent) ->
-    console.log 'BBallGame.handlePlayerAdded()'
-#    console.dir domainEvent
-    {payload: {team, id}} = domainEvent
-    @state[team] ?= {}
-    @state[team][id] = 'GamePlayer ' + id
-
-    console.dir this
+module.exports = BBallGame
