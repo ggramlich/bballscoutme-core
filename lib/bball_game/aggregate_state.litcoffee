@@ -9,7 +9,7 @@ Import the [entity classes](entities.litcoffee).
 
     {Team, GamePlayer} = require './entities'
 
-## <a name="GameState></a> `GameState`
+## <a name="GameState"></a> `GameState`
 
     class GameState
 
