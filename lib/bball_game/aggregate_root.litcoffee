@@ -1,9 +1,12 @@
-The `BBallGame` is the aggregate root which holds the `GameState` and emits domain events.
+# BBall Game Aggregate Root
+
+The [`BBallGame`](#BBallGame) is the aggregate root which holds the [`GameState`](aggregate_state.litcoffee#GameState)
+and emits domain events.
 The `GameState` provides several methods to handle the domain events.
 For each of these event handling methods on the `GameState` the aggregate root has delegate method.
 
     uuid = require 'node-uuid'
-    GameState = require './aggregate_state'
+    {GameState} = require './aggregate_state'
 
 Helper function to set up the delegate methods.
 
@@ -20,6 +23,8 @@ The *eventric* framework calls these `handle...` methods on the aggregate root.
       return unless methodName.indexOf('handle') is 0
       target[methodName] = (domainEvent) ->
         method.call gameState, domainEvent.payload
+
+## <a name="BBallGame"></a> BBallGame
 
 The `BBallGame` class that represents the aggregate root.
 
@@ -50,6 +55,7 @@ The `addPlayer` method checks the validity of the `params` and emits as `PlayerA
         @$emitDomainEvent 'PlayerAdded', params
         done()
 
+## Export
 Export the constructor method for `BBallGame`.
 
-    module.exports = BBallGame
+    module.exports = {BBallGame}

@@ -1,5 +1,5 @@
 expect = require 'must'
-GameState = require '../../lib/bball_game/aggregate_state'
+{GameState} = require '../../lib/bball_game/aggregate_state'
 {GamePlayer} = require '../../lib/bball_game/entities'
 
 UUID1 = 'id1'

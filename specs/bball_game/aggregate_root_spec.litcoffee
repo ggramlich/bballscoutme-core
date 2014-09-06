@@ -20,9 +20,9 @@ The Fake `GameState` provides a `handleSomeEvent` method that records its call i
 
 We set up the `BBallGame` constructor with the fake uuid generator and fake `GameState`.
 
-    BBallGame = mock '../../lib/bball_game/aggregate_root', {
+    {BBallGame} = mock '../../lib/bball_game/aggregate_root', {
       'node-uuid': v4: -> UUID
-      '../../lib/bball_game/aggregate_state': GameState
+      '../../lib/bball_game/aggregate_state': {GameState}
     }, require
 
 The `prepareForTest` function injects a fake `$emitDomainEvent` method into the the given object and returns an object
