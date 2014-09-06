@@ -7,7 +7,7 @@ especially by the code samples of Rinat Abdullin: https://github.com/Lokad/lokad
 
     module.exports = class GameState
 
-The GameState constructor can optionally accept a list of events.
+The `GameState` constructor can optionally accept a list of events.
 It initializes team.A and team.B.
 
       constructor: ->
@@ -15,10 +15,12 @@ It initializes team.A and team.B.
           A: new Team
           B: new Team
 
-The handlePlayerAdded method delegates to the Teams addPlayer method.
+The `handlePlayerAdded` method delegates to the `Team`'s `addPlayer` method.
 
       handlePlayerAdded: ({team, gamePlayerId}) ->
         @team[team].addPlayer new GamePlayer gamePlayerId
+
+The `handlePlayerDetailsUpdated` method delegates to the `Team`'s `updatePlayerDetails` method.
 
       handlePlayerDetailsUpdated: (params) ->
         {team, gamePlayerId} = params
